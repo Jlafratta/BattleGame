@@ -1,0 +1,35 @@
+----------------------------------------
+    BattleGame          Version: 1.5
+----------------------------------------
+
+ - Main: ready <
+
+ - BattleGame class: Completed <
+
+ - SystemMenu class: Completed <
+
+ - Character package: Completed <
+
+ - Equipment package: Competed <
+
+ - Items package: Incomplete >
+
+ - Maps package: Completed <
+
+ - Npc package: Completed <
+
+ - Exception: All checked, except Items Package.
+
+ toDo:
+
+ - > Items Package
+
+    - Add missing items.
+    - Add List<Item> itemList to Inventory Class.
+    - Add applyItem() to Item Class.
+    - Check all with Exception
+
+ - > SystemMenu
+
+    - Complete WIP methods whit Items Package missing functions.
+

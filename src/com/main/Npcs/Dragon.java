@@ -3,13 +3,13 @@ package com.main.Npcs;
 public class Dragon extends Npc{
 
     private final int fireAttack = 70;
-    private final int EXP = 100;
-    private final int GOLD = 500;
+    private final int EXP = 1000;
+    private final int GOLD = 5000;
 
     /** Constructor **/
 
     public Dragon(int tier){
-        setId(getIdentifier());
+        super();
         setName("[Dragon]");
         setTier(tier);
         setDmg(calculateDmgNpc()*tier);

@@ -16,12 +16,12 @@ import com.main.Maps.*;
 
 public class SystemMenu implements iHelper{
 
-    private BattleGame battleGame;
+    private BattleGame sv;
 
     /** Constructor **/
     // Recibe el BattleGame sobre el cual trabajara
     public SystemMenu(BattleGame sv){
-        setBattleGame(sv);
+        setSv(sv);
     }
 
     /** Menus **/
@@ -38,7 +38,7 @@ public class SystemMenu implements iHelper{
             System.out.println(" 1.- Create new character");
             System.out.println(" 2.- Choose a character");
             System.out.println(" 3.- Server info");
-            System.out.println(getBattleGame().getPlayer() != null ? " 4.- Enter as "+getBattleGame().getPlayer().getName(): " ");
+            System.out.println(getSv().getPlayer() != null ? " 4.- Enter as "+ getSv().getPlayer().getName(): " ");
             System.out.println("\n 0.- Exit");
             System.out.println("\n|=========================================|");
             System.out.print("\n -> ");
@@ -115,8 +115,8 @@ public class SystemMenu implements iHelper{
             }
             int value = scan.nextInt();
 
-            getBattleGame().addPlayer(getBattleGame().newCharacter(name, value)); //Agregacion. Validaciones con exception
-            //addPlayer verifica el nombre / newCharacter verifica la
+            getSv().addPlayer(getSv().newPlayer(name, value)); //Agregacion. Validaciones con exception
+            //addPlayer verifica el nombre / newPlayer verifica la
             inGameMenu();
 
         }catch (Exception e){
@@ -133,15 +133,15 @@ public class SystemMenu implements iHelper{
         try {
             helper.clearSpace();
             System.out.println("\n|========= Choose your Character =========|");
-            getBattleGame().showPlayerList(); //Printea los pj. Exception controlada (showPlayerList)
+            getSv().showPlayerList(); //Printea los pj. Exception controlada (showPlayerList)
             System.out.println("\n|=========================================|");
             System.out.println("\n >Enter name ");
             System.out.print("\n -> ");
             String name = scan.next();
-            getBattleGame().setPlayer(getBattleGame().getPlayerByName(name));   //Settea el pj. Exception controlada(getPlayerByName)
+            getSv().setPlayer(getSv().getPlayerByName(name));   //Settea el pj. Exception controlada(getPlayerByName)
             helper.clearSpace();
             System.out.println("\n >Selected character:\n");
-            System.out.println(getBattleGame().getPlayer().toString()); //Printea el pj seleccionado
+            System.out.println(getSv().getPlayer().toString()); //Printea el pj seleccionado
             helper.pressAnyKeyToContinue();
             inGameMenu();   //Ingresa al menu de juego
 
@@ -156,12 +156,12 @@ public class SystemMenu implements iHelper{
     private void infoMenu(){
         helper.clearSpace();
         System.out.println("\n|============== Server Info ==============|");
-        System.out.println("\t\t\t\t\t\t\t\t\tv"+getBattleGame().getVersion());
-        System.out.println(getBattleGame().toString());
+        System.out.println("\t\t\t\t\t\t\t\t\tv"+ getSv().getVersion());
+        System.out.println(getSv().toString());
         System.out.println("\n|=========================================|");
 
         try {
-            getBattleGame().showPlayerList(); //Printea los pj. Excepcion controlada (showPlayerList)
+            getSv().showPlayerList(); //Printea los pj. Excepcion controlada (showPlayerList)
             System.out.println("\n|=========================================|\n");
             helper.pressAnyKeyToContinue();
         }catch (Exception e){
@@ -174,37 +174,37 @@ public class SystemMenu implements iHelper{
     // Menu de jugador
     private void inGameMenu() {
 
-        if (getBattleGame().getPlayer() != null) {
+        if (getSv().getPlayer() != null) {
 
             int value = -1;
 
             while (value != 0) {
                 helper.clearSpace();
-                System.out.println("  "+getBattleGame().getActualMap().toString());
+                System.out.println("  "+ getSv().getActualMap().toString());
                 System.out.println("|=============== Safe Zone ===============|");
-                System.out.println("\n  " + getBattleGame().getPlayer().getName() + " < " + getBattleGame().getPlayer().getLevelSystem().getLevel() + " > \n");
+                System.out.println("\n  " + getSv().getPlayer().getName() + " < " + getSv().getPlayer().getLevelSystem().getLevel() + " > \n");
                 System.out.println(" 1.- Go to Battle Zone");
                 System.out.println(" 2.- Inventory");
                 System.out.println(" 3.- Equipment");
                 System.out.println(" 4.- Stats");
                 System.out.println(" 5.- Change map");
                 System.out.println("\n 0.- Back to Start Menu");
-                System.out.println("\n  XP: " +getBattleGame().getPlayer().getLevelSystem().getExp() + " / " +getBattleGame().getPlayer().getLevelSystem().getExpTop());
+                System.out.println("\n  XP: " + getSv().getPlayer().getLevelSystem().getExp() + " / " + getSv().getPlayer().getLevelSystem().getExpTop());
                 System.out.println("|=========================================|");
                 System.out.print("\n -> ");
 
                 while (!scan.hasNextInt()) {
                     helper.clearSpace();
-                    System.out.println("  "+getBattleGame().getActualMap().toString());
+                    System.out.println("  "+ getSv().getActualMap().toString());
                     System.out.println("|=============== Safe Zone ===============|");
-                    System.out.println("\n  " + getBattleGame().getPlayer().getName() + " <" + getBattleGame().getPlayer().getLevelSystem().getLevel() + "> \n");
+                    System.out.println("\n  " + getSv().getPlayer().getName() + " <" + getSv().getPlayer().getLevelSystem().getLevel() + "> \n");
                     System.out.println(" 1.- Go to Battle Zone");
                     System.out.println(" 2.- Inventory");
                     System.out.println(" 3.- Equipment");
                     System.out.println(" 4.- Stats");
                     System.out.println(" 5.- Change map");
                     System.out.println("\n 0.- Back to Start Menu");
-                    System.out.println("\n  XP: " +getBattleGame().getPlayer().getLevelSystem().getExp() + " / " +getBattleGame().getPlayer().getLevelSystem().getExpTop());
+                    System.out.println("\n  XP: " + getSv().getPlayer().getLevelSystem().getExp() + " / " + getSv().getPlayer().getLevelSystem().getExpTop());
                     System.out.println("\n|=========================================|");
                     System.out.print("\n -> ");
                     scan.next();
@@ -218,7 +218,7 @@ public class SystemMenu implements iHelper{
                             helper.clearSpace();
                             System.out.println("\n|=========================================|");
                             helper.printWithRandonSleep("\n\t\t\tSearching enemy");
-                            getBattleGame().searchBattle();
+                            getSv().searchBattle();
                         }catch (Exception e){
                             System.out.println("\n\t Error on Battle: "+e.getMessage());
                         }
@@ -248,7 +248,7 @@ public class SystemMenu implements iHelper{
     }
 
     // Menu de inventario. Permite ver y utilizar los items. Upgrades de equipamiento.
-    public void inventoryMenu(){
+    private void inventoryMenu(){
 
         try {
 
@@ -258,7 +258,7 @@ public class SystemMenu implements iHelper{
 
                 helper.clearSpace();
                 System.out.println("|=============== Inventory ===============|");
-                System.out.println(getBattleGame().getPlayer().getInv().toString());
+                System.out.println(getSv().getPlayer().getInv().toString());
                 System.out.println("\n 1.- View backpack");
                 System.out.println(" 2.- Use item");
                 System.out.println("\n 0.- Back to Start Menu");
@@ -268,7 +268,7 @@ public class SystemMenu implements iHelper{
                 while (!scan.hasNextInt()) {
                     helper.clearSpace();
                     System.out.println("|=============== Inventory ===============|");
-                    System.out.println(getBattleGame().getPlayer().getInv().toString());
+                    System.out.println(getSv().getPlayer().getInv().toString());
                     System.out.println("\n 1.- View backpack");
                     System.out.println(" 2.- Use item");
                     System.out.println("\n 0.- Back to Start Menu");
@@ -281,7 +281,7 @@ public class SystemMenu implements iHelper{
                 switch (value){
                     case 1:
                         helper.clearSpace();
-                        getBattleGame().getPlayer().getInv().showInventory();
+                        getSv().getPlayer().getInv().showInventory();
                         helper.pressAnyKeyToContinue();
                         break;
                     case 2:
@@ -302,7 +302,7 @@ public class SystemMenu implements iHelper{
     }
 
     // Menu de utilizacion de items
-    public void consumeItemMenu(){
+    private void consumeItemMenu(){
         try {
 
             int value = -1;
@@ -310,13 +310,13 @@ public class SystemMenu implements iHelper{
             while (value != 0){
 
                 helper.clearSpace();
-                getBattleGame().getPlayer().getInv().showInventory();
+                getSv().getPlayer().getInv().showInventory();
                 System.out.println(" 0.- Back to Inventory\n");
                 System.out.print(" -> ");
 
                 while (!scan.hasNextInt()) {
                     helper.clearSpace();
-                    getBattleGame().getPlayer().getInv().showInventory();
+                    getSv().getPlayer().getInv().showInventory();
                     System.out.println(" 0.- Back to Inventory\n");
                     System.out.print(" -> ");
                     scan.next();
@@ -325,9 +325,9 @@ public class SystemMenu implements iHelper{
 
                 switch (value){
                     default:
-                        if (value>0 && value<=(getBattleGame().getPlayer().getInv().getItemList().size())){
+                        if (value>0 && value<=(getSv().getPlayer().getInv().getItemList().size())){
                             helper.clearSpace();
-                            getBattleGame().getPlayer().getInv().useItem(getBattleGame().getPlayer(), getBattleGame().getPlayer().getInv().getItemList().get(value-1));
+                            getSv().getPlayer().getInv().useItem(getSv().getPlayer(), getSv().getPlayer().getInv().getItemList().get(value-1));
                             System.out.println(" ");
                             helper.pressAnyKeyToContinue();
                         }else {
@@ -358,8 +358,8 @@ public class SystemMenu implements iHelper{
         while (value != 0){
             helper.clearSpace();
             System.out.println("\n|=============== Equipment ===============|");
-            System.out.println("\n"+getBattleGame().getPlayer().getWeapon().toString());
-            System.out.println(getBattleGame().getPlayer().getArmor().toString());
+            System.out.println("\n"+ getSv().getPlayer().getWeapon().toString());
+            System.out.println(getSv().getPlayer().getArmor().toString());
             System.out.println("\n 0.- Back to Game Menu");
             System.out.println("\n|=========================================|");
             System.out.print("\n -> ");
@@ -367,8 +367,8 @@ public class SystemMenu implements iHelper{
             while (!scan.hasNextInt()){
                 helper.clearSpace();
                 System.out.println("\n|=============== Equipment ===============|");
-                System.out.println("\n"+getBattleGame().getPlayer().getWeapon().toString());
-                System.out.println(getBattleGame().getPlayer().getArmor().toString());
+                System.out.println("\n"+ getSv().getPlayer().getWeapon().toString());
+                System.out.println(getSv().getPlayer().getArmor().toString());
                 System.out.println("\n 0.- Back to Game Menu");
                 System.out.println("\n|=========================================|");
                 System.out.print("\n -> ");
@@ -394,8 +394,8 @@ public class SystemMenu implements iHelper{
         while (value != 0) {
             helper.clearSpace();
             System.out.println("\n|============== Stats Menu ===============|\n");
-            System.out.println(getBattleGame().getPlayer().getStats().toString()+"\n");
-            System.out.println(" Points: "+getBattleGame().getPlayer().getLevelSystem().getLevelPoint()+"\n");
+            System.out.println(getSv().getPlayer().getStats().toString()+"\n");
+            System.out.println(" Points: "+ getSv().getPlayer().getLevelSystem().getLevelPoint()+"\n");
             System.out.println(" 1.- Add STR");
             System.out.println(" 2.- Add DEF");
             System.out.println(" 3.- Add STA");
@@ -406,8 +406,8 @@ public class SystemMenu implements iHelper{
             while (!scan.hasNextInt()) {
                 helper.clearSpace();
                 System.out.println("\n|============== Stats Menu ===============|\n");
-                System.out.println(getBattleGame().getPlayer().getStats().toString()+"\n");
-                System.out.println(" Points: "+getBattleGame().getPlayer().getLevelSystem().getLevelPoint()+"\n");
+                System.out.println(getSv().getPlayer().getStats().toString()+"\n");
+                System.out.println(" Points: "+ getSv().getPlayer().getLevelSystem().getLevelPoint()+"\n");
                 System.out.println(" 1.- Add STR");
                 System.out.println(" 2.- Add DEF");
                 System.out.println(" 3.- Add STA");
@@ -448,12 +448,12 @@ public class SystemMenu implements iHelper{
         }
         int addPoint = scan.nextInt();
 
-        if (addPoint > getBattleGame().getPlayer().getLevelSystem().getLevelPoint() || addPoint<0 ){
+        if (addPoint > getSv().getPlayer().getLevelSystem().getLevelPoint() || addPoint<0 ){
             System.out.println("\n\tYou do not have enough points.\n");
             helper.pressAnyKeyToContinue();
         }else {
-            getBattleGame().getPlayer().getStats().addStr(addPoint);
-            getBattleGame().getPlayer().getLevelSystem().applyPoints(addPoint);
+            getSv().getPlayer().getStats().addStr(addPoint);
+            getSv().getPlayer().getLevelSystem().applyPoints(addPoint);
         }
     }
 
@@ -466,12 +466,12 @@ public class SystemMenu implements iHelper{
         }
         int addPoint = scan.nextInt();
 
-        if (addPoint > getBattleGame().getPlayer().getLevelSystem().getLevelPoint() || addPoint<0){
+        if (addPoint > getSv().getPlayer().getLevelSystem().getLevelPoint() || addPoint<0){
             System.out.println("\n\tYou do not have enough points.\n");
             helper.pressAnyKeyToContinue();
         }else {
-            getBattleGame().getPlayer().getStats().addDef(addPoint);
-            getBattleGame().getPlayer().getLevelSystem().applyPoints(addPoint);
+            getSv().getPlayer().getStats().addDef(addPoint);
+            getSv().getPlayer().getLevelSystem().applyPoints(addPoint);
         }
     }
 
@@ -484,12 +484,12 @@ public class SystemMenu implements iHelper{
         }
         int addPoint = scan.nextInt();
 
-        if (addPoint > getBattleGame().getPlayer().getLevelSystem().getLevelPoint() || addPoint<0){
+        if (addPoint > getSv().getPlayer().getLevelSystem().getLevelPoint() || addPoint<0){
             System.out.println("\n\tYou do not have enough points.\n");
             helper.pressAnyKeyToContinue();
         }else {
-            getBattleGame().getPlayer().getStats().addSta(addPoint);
-            getBattleGame().getPlayer().getLevelSystem().applyPoints(addPoint);
+            getSv().getPlayer().getStats().addSta(addPoint);
+            getSv().getPlayer().getLevelSystem().applyPoints(addPoint);
         }
     }
 
@@ -499,10 +499,10 @@ public class SystemMenu implements iHelper{
 
             helper.clearSpace();
             System.out.println("\n|=============== Map Menu ================|");
-            getBattleGame().showMapList();  // Lista de mapas. Excepcion controlada
-            System.out.println("\n "+getBattleGame().getMapList().get(getIndexOfVentormenta()).getTier()+".- Ventormenta | "+getBattleGame().getMapList().get(getIndexOfVentormenta()).getMoveCost()+" Gold.");
-            System.out.println(" "+getBattleGame().getMapList().get(getIndexOfTarkan()).getTier()+".- Tarkan | "+getBattleGame().getMapList().get(getIndexOfTarkan()).getMoveCost()+" Gold.");
-            System.out.println(" "+getBattleGame().getMapList().get(getIndexOfAzeroth()).getTier()+".- Azeroth | "+getBattleGame().getMapList().get(getIndexOfAzeroth()).getMoveCost()+" Gold.");
+            getSv().showMapList();  // Lista de mapas. Excepcion controlada
+            System.out.println("\n "+ getSv().getMapList().get(getIndexOfVentormenta()).getTier()+".- Ventormenta | "+ getSv().getMapList().get(getIndexOfVentormenta()).getMoveCost()+" Gold.");
+            System.out.println(" "+ getSv().getMapList().get(getIndexOfTarkan()).getTier()+".- Tarkan | "+ getSv().getMapList().get(getIndexOfTarkan()).getMoveCost()+" Gold.");
+            System.out.println(" "+ getSv().getMapList().get(getIndexOfAzeroth()).getTier()+".- Azeroth | "+ getSv().getMapList().get(getIndexOfAzeroth()).getMoveCost()+" Gold.");
             System.out.println("\n 0.- Back to Game Menu");
             System.out.println("\n|=========================================|");
             System.out.print("\n -> ");
@@ -510,10 +510,10 @@ public class SystemMenu implements iHelper{
             while (!scan.hasNextInt()) {
                 helper.clearSpace();
                 System.out.println("\n|=============== Map Menu ================|");
-                getBattleGame().showMapList();  // Lista de mapas. Excepcion controlada
-                System.out.println("\n "+getBattleGame().getMapList().get(getIndexOfVentormenta()).getTier()+".- Ventormenta | "+getBattleGame().getMapList().get(getIndexOfVentormenta()).getMoveCost()+" Gold.");
-                System.out.println(" "+getBattleGame().getMapList().get(getIndexOfTarkan()).getTier()+".- Tarkan | "+getBattleGame().getMapList().get(getIndexOfTarkan()).getMoveCost()+" Gold.");
-                System.out.println(" "+getBattleGame().getMapList().get(getIndexOfAzeroth()).getTier()+".- Azeroth | "+getBattleGame().getMapList().get(getIndexOfAzeroth()).getMoveCost()+" Gold.");
+                getSv().showMapList();  // Lista de mapas. Excepcion controlada
+                System.out.println("\n "+ getSv().getMapList().get(getIndexOfVentormenta()).getTier()+".- Ventormenta | "+ getSv().getMapList().get(getIndexOfVentormenta()).getMoveCost()+" Gold.");
+                System.out.println(" "+ getSv().getMapList().get(getIndexOfTarkan()).getTier()+".- Tarkan | "+ getSv().getMapList().get(getIndexOfTarkan()).getMoveCost()+" Gold.");
+                System.out.println(" "+ getSv().getMapList().get(getIndexOfAzeroth()).getTier()+".- Azeroth | "+ getSv().getMapList().get(getIndexOfAzeroth()).getMoveCost()+" Gold.");
                 System.out.println("\n 0.- Back to Game Menu");
                 System.out.println("\n|=========================================|");
                 System.out.print("\n -> ");
@@ -524,8 +524,8 @@ public class SystemMenu implements iHelper{
 
             if (value!=0){
                 System.out.println("\n|=========================================|");
-                getBattleGame().moveTo(getBattleGame().getMap(value));
-                helper.printWithSleep("\n\t\t Moving to "+getBattleGame().getMap(value));
+                getSv().moveTo(getSv().getMap(value));
+                helper.printWithSleep("\n\t\t Moving to "+ getSv().getMap(value));
 
             }
             //Cambia de mapa. Excepcion controlada:
@@ -543,24 +543,24 @@ public class SystemMenu implements iHelper{
     /** Extras **/
 
     public int getIndexOfVentormenta(){
-        return getBattleGame().getMapList().indexOf(new Ventormenta());
+        return getSv().getMapList().indexOf(new Ventormenta());
     }
 
     public int getIndexOfTarkan(){
-        return getBattleGame().getMapList().indexOf(new Tarkan());
+        return getSv().getMapList().indexOf(new Tarkan());
     }
 
     public int getIndexOfAzeroth(){
-        return getBattleGame().getMapList().indexOf(new Azeroth());
+        return getSv().getMapList().indexOf(new Azeroth());
     }
 
     /** Getters & Setters **/
 
-    public BattleGame getBattleGame() {
-        return battleGame;
+    public BattleGame getSv() {
+        return sv;
     }
 
-    private void setBattleGame(BattleGame battleGame) {
-        this.battleGame = battleGame;
+    private void setSv(BattleGame sv) {
+        this.sv = sv;
     }
 }

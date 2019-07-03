@@ -7,8 +7,6 @@ import com.main.Items.*;
 
 public abstract class Npc extends Entity implements Action{
 
-    private int id;
-    private static int idCont = 0;
     private int dmg;
     private int def;
     private int sta;
@@ -20,7 +18,7 @@ public abstract class Npc extends Entity implements Action{
     /** Constructor **/
 
     public Npc(){
-        setId(getIdentifier());
+        super();
     }
 
     /** Methods **/
@@ -37,11 +35,6 @@ public abstract class Npc extends Entity implements Action{
             setDef(70*tier);
             setSta(400*tier);
         }
-    }
-
-    public static int getIdentifier(){
-        idCont ++;
-        return idCont;
     }
 
     public int attackChar(Character character){
@@ -63,12 +56,6 @@ public abstract class Npc extends Entity implements Action{
         return damage;  //retorna el daño causado
     }
 
-    /** Getters & Setters **/
-
-    public static int getIdCont() {
-        return idCont++;
-    }
-
     public Item getItem() {
 
         boolean critGem = Math.random() < 0.05;
@@ -87,13 +74,7 @@ public abstract class Npc extends Entity implements Action{
         }else return null;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    protected void setId(int id) {
-        this.id = id;
-    }
+    /** Getters & Setters **/
 
     public int getDmg() {
         return dmg;
@@ -128,7 +109,7 @@ public abstract class Npc extends Entity implements Action{
         this.exp = exp;
     }
 
-    //Variacion del 10% de exp aplicada
+    //Variacion del 10% del oro aplicada
     public int getGold() {
         return (int)Math.floor(Math.random()*(gold - ((gold*0.9))+1)+(gold*0.9));
     }

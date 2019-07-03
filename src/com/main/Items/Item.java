@@ -25,7 +25,7 @@ public abstract class Item {
         this.id = id;
     }
 
-    public abstract void applyItem(Character character) throws Exception;
+    protected abstract void applyItem(Character character) throws Exception;
 
     @Override
     public boolean equals(Object obj) {

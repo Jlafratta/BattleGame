@@ -23,7 +23,7 @@ import com.main.Characters.Knight;
  *
  ***/
 
-public class Main implements iHelper{
+public class Main{
 
     public static void main(String[] args) {
 

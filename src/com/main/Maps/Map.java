@@ -31,8 +31,8 @@ public abstract class Map {
     private final int moveCost = 15;    //costo basico de transporte hacia el mapa
     private List<Npc> npcList;
 
-    public abstract void addNpc(Class Npc);
-    public abstract void createNpcList();
+    protected abstract void addNpc(Class Npc);
+    protected abstract void createNpcList();
     public abstract int getTier();
 
     public int getMoveCost() {      // retorna el costo general*tier
@@ -47,7 +47,7 @@ public abstract class Map {
         this.npcList = npcList;
     }
 
-    public void npcList() throws Exception{
+    public void showNpcList() throws Exception{
 
         if (getNpcList().isEmpty() || getNpcList() == null){
             throw new Exception("\n\t No Npcs founded\n");

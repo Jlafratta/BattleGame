@@ -185,16 +185,14 @@ public class BattleGame implements iHelper{
     // Batalla del jugador vs lo que venga por parametro ( Npc u otro Character )
     private boolean battle(Object enemyFound)throws Exception{
 
-        getPlayer().getInv().addItem(new HealthPotion());
-
-        Entity enemy; // Crea una copia para no modificar los valores de los enemigos directamente
-        Item dropped = null;
+        Entity enemy;
+        Item dropped =null;
 
         if (!(enemyFound instanceof Character) && !(enemyFound instanceof Npc)){
             throw new Exception("\n\t\t Parameter error\n");
         }else if (enemyFound instanceof Npc){
             enemy = (Npc) enemyFound;
-            dropped = ((Npc)enemy).getItem();
+            dropped = ((Npc)enemy).getItem();   //si es un npc asigna el posible drop de item
         }else {
             enemy = (Character) enemyFound;
         }
@@ -283,8 +281,8 @@ public class BattleGame implements iHelper{
 
             }else if (getPlayer().isAlive()) {      // si ninguno de los dos murio, abre el menu de decision durante la batalla
                                                     // que permite seguir peleando, curarse, o escapar a la zona segura
-                helper.clearSpace();
-                helper.showBattleStats(getPlayer(), enemy);
+                //helper.clearSpace();
+                //helper.showBattleStats(getPlayer(), enemy);
                 System.out.println(" 1.- Fight");
                 System.out.println(" 2.- Use Health Potion");
                 System.out.println("\n 0.- Go back to Safe Zone");
@@ -436,7 +434,7 @@ public class BattleGame implements iHelper{
     }
 
     // Crea un pj y lo devuelve. Si el tipo de clase es incorrecto lanza Excepcion -> Utilizado en la validacion
-    public Character newCharacter(String name, int type) throws Exception{         //    al crear el pj
+    public Character newPlayer(String name, int type) throws Exception{         //    al crear el pj
 
         Character pj;
 
@@ -489,7 +487,7 @@ public class BattleGame implements iHelper{
 
         for (Map m : getMapList()){
             System.out.println("\n"+m.toString());
-            m.npcList();
+            m.showNpcList();
         }
     }
 
@@ -552,8 +550,27 @@ public class BattleGame implements iHelper{
     private void setPlayerList_nofile(){
         try {
             addPlayer(new Knight("Riquelme"));
+            getPlayer().getLevelSystem().addExp(29000);
+            getPlayer().getInv().addGold(1000);
+            getPlayer().getInv().addItem(new CriticalGem());
+            getPlayer().getInv().addItem(new DefenseGem());
+            getPlayer().getInv().addItem(new DamageGem());
+
             addPlayer(new Wizard("Merlin"));
+            getPlayer().getLevelSystem().addExp(1500);
+            getPlayer().getInv().addGold(10);
+            getPlayer().getInv().addItem(new CriticalGem());
+            getPlayer().getInv().addItem(new DefenseGem());
+            getPlayer().getInv().addItem(new DamageGem());
+
             addPlayer(new Archer("TiraFlecha"));
+            getPlayer().getLevelSystem().addExp(20000);
+            getPlayer().getInv().addGold(1700);
+            getPlayer().getInv().addItem(new CriticalGem());
+            getPlayer().getInv().addItem(new DefenseGem());
+            getPlayer().getInv().addItem(new DamageGem());
+
+
         }catch (Exception e){
             System.out.println("\n\t Data base error (Load characters)\n");
         }

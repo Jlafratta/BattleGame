@@ -27,8 +27,6 @@ import com.main.iHelper;
 
 public abstract class Character extends Entity implements Action, iHelper {
 
-    private int id;
-    private static int idCont = 0;
     private LevelSystem levelSystem;
     private Stats stats;
     private Weapon weapon;
@@ -36,7 +34,7 @@ public abstract class Character extends Entity implements Action, iHelper {
     private Inventory inv;
 
     public Character(String name){
-        setId(getIdentifier());
+        super();
         setName(name);
         setLevelSystem(new LevelSystem());
         setInv(new Inventory());
@@ -98,18 +96,6 @@ public abstract class Character extends Entity implements Action, iHelper {
     }
 
     /// GETTERS & SETTERS
-    private static int getIdentifier(){
-        idCont ++;
-        return idCont;
-    }
-
-    private void setId ( int id){
-        this.id = id;
-    }
-
-    public int getId () {
-        return this.id;
-    }
 
     public LevelSystem getLevelSystem() {
         return levelSystem;

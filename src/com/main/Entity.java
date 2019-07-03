@@ -17,10 +17,28 @@ package com.main;
 
  public abstract class Entity {
 
+    private int id;
+    private static int idCont = 0;
     private String name;
     private boolean isAlive = true;
 
+    public Entity(){
+        setId(getIdCont());
+    }
+
+    private static int getIdCont() {
+        return idCont++;
+    }
+
     /** Getters & Setters **/
+
+    private void setId ( int id){
+        this.id = id;
+    }
+
+    public int getId () {
+        return this.id;
+    }
 
     public boolean isAlive() {
         return isAlive;
@@ -33,11 +51,11 @@ package com.main;
     public abstract String battleStats();
 
     public void die(){
-        this.isAlive = false;
+        setAlive(false);
     }
 
     public void respawn() throws Exception{
-        this.isAlive = true;
+        setAlive(true);
     }
 
     public String getName() {

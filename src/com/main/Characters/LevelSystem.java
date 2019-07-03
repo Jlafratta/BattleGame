@@ -28,7 +28,7 @@ public class LevelSystem implements iHelper {
             throw new Exception("\n\t\tYou have reached max level\n");
         }else {
             setLevel(getLevel()+1);
-            setExpTop(getExpTop() * 2);
+            setExpTop((int)(getExpTop() * 1.5));
             setLevelPoint(getLevelPoint() + getPpl());
             addExp(ex);
         }

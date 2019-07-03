@@ -50,7 +50,7 @@ public class Inventory {
         return gold;
     }
 
-    public void setGold(int gold) {
+    private void setGold(int gold) {
         this.gold = gold;
     }
 
@@ -117,7 +117,7 @@ public class Inventory {
 
     @Override
     public String toString(){
-        String msgFmt ="\n\t Backpack: %d\n\t Gold: %d";
-        return String.format(msgFmt, getItemList().size(), getGold());
+        String msgFmt ="\n\t Backpack: %d / %d\n\t Gold: %d";
+        return String.format(msgFmt, getItemList().size(), getSpace(), getGold());
     }
 }

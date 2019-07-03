@@ -3,13 +3,13 @@ package com.main.Npcs;
 public class Elf extends Npc {
 
     private final int magicAttack = 150;
-    private final int EXP = 10;
-    private final int GOLD = 5;
+    private final int EXP = 150;
+    private final int GOLD = 300;
 
     /** Constructor **/
 
     public Elf(int tier){
-        setId(getIdentifier());
+        super();
         setName("[Elf]");
         setTier(tier);
         setDmg(calculateDmgNpc()*tier);

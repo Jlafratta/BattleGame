@@ -3,13 +3,13 @@ package com.main.Npcs;
 public class Warrior extends Npc {
 
     private final int meleeAttack = 120;
-    private final int EXP = 35;
-    private final int GOLD = 20;
+    private final int EXP = 250;
+    private final int GOLD = 100;
 
     /** Constructor **/
 
     public Warrior(int tier){
-        setId(getIdentifier());
+        super();
         setName("[Warrior]");
         setTier(tier);
         setDmg(calculateDmgNpc()*tier);

@@ -37,7 +37,7 @@ public abstract class Armor {
         return defMod;
     }
 
-    public abstract void setDefMod();
+    protected abstract void setDefMod();
     public abstract int calculateArmor();
 
     @Override
